@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conversor="clr-namespace:TodoList.Conversor"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#F5F6FA"
              x:Class="TodoList.Telas.Listar">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conversor:TachadoConversor x:Key="Tachado" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.ColumnDefinitions>
@@ -21,35 +27,78 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label Margin="20, 40, 0, 0">
+                <Label Margin="20, 40, 0, 0" VerticalTextAlignment="Center">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Segunda-feira" FontFamily="MontserratRegular" FontSize="20" TextColor="Black" />
+                            <Span x:Name="DiaDaSemana" Text="-" FontFamily="MontserratRegular" FontSize="20" TextColor="Black" />
                             <Span Text="&#10;" />
-                            <Span Text="3 tarefas" FontFamily="MontserratThin" FontSize="14" TextColor="#888888" />
+                            <Span x:Name="QuantidadeTarefas" Text="0" FontFamily="MontserratThin" FontSize="14" TextColor="#888888" />
+                            <Span Text=" tarefas" FontFamily="MontserratThin" FontSize="14" TextColor="#888888" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Frame Grid.Column="1" Margin="10, 20, 20, 0" BackgroundColor="#4043C9" CornerRadius="20" HasShadow="False">
-                    <Label TextColor="White" HorizontalTextAlignment="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="9" FontFamily="MontserratMedium" FontSize="20" />
-                                <Span Text="&#10;" />
-                                <Span Text="Fev" FontFamily="MontserratLight" FontSize="14" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                <Frame Grid.Column="1" WidthRequest="{OnPlatform UWP=75}" HeightRequest="{OnPlatform UWP=75}" HorizontalOptions="{OnPlatform UWP=End}" VerticalOptions="{OnPlatform UWP=Center}" Margin="10, 20, 20, 0" BackgroundColor="Blue"  CornerRadius="20" HasShadow="False">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AbrirCalendario" />
+                    </Frame.GestureRecognizers>
+                    <StackLayout VerticalOptions="Center">
+                        <DatePicker x:Name="DPCalendario" DateSelected="DateSelectedAction" IsVisible="{OnPlatform UWP=True, Android=False, iOS=False}" WidthRequest="0" HeightRequest="0" HorizontalOptions="Start"  VerticalOptions="Start" />
+                        <Label TextColor="White" HorizontalTextAlignment="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span x:Name="Dia" Text="-" FontSize="20" FontFamily="MontserratMedium" />
+                                    <Span Text="&#10;" />
+                                    <Span x:Name="Mes" Text="-" FontSize="14" FontFamily="MontserratLight"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
                 </Frame>
             </Grid>
             <Frame HasShadow="False" CornerRadius="30" TranslationY="30" Grid.Row="1">
                 <Grid>
                     <Grid.RowDefinitions>
-                    <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Button Text="+" BackgroundColor="#4043C9" CornerRadius="50" FontSize="36" 
+
+                    <CollectionView x:Name="CVListaDeTarefas" EmptyView="Nenhuma tarefa">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView BackgroundColor="White">
+                                    <SwipeView.RightItems>
+                                        <SwipeItem BackgroundColor="#EE6C4D" Text="Excluir" Invoked="BtnExcluir" CommandParameter="{Binding .}" />
+                                    </SwipeView.RightItems>
+                                    <Grid Padding="0, 10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="4*" />
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox IsChecked="{Binding Finalizada}" CheckedChanged="CheckedAction" Color="#707070" />
+                                        <Label x:Name="LblTarefaDetalhe" TextDecorations="{Binding Finalizada, Converter={StaticResource Tachado}}" Grid.Column="1" LineHeight="1.2">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="BtnVisualizar" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Nome}" TextColor="Black" FontFamily="MontserratBold" FontSize="16" />
+                                                    <Span Text="&#10;" />
+                                                    <Span Text="{Binding HorarioInicial}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                    <Span Text=" - " TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                    <Span Text="{Binding HorarioFinal}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="+" BackgroundColor="#4043C9" CornerRadius="50" FontSize="37" 
                             TextColor="White" HorizontalOptions="End" WidthRequest="75" 
-                            HeightRequest="75" VerticalOptions="End" TranslationY="-30" />
+                            HeightRequest="75" VerticalOptions="End" TranslationY="-30" 
+                            Clicked="btnCadastrar_Clicked"
+                            />
                 </Grid>
             </Frame>
         </Grid>

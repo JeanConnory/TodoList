@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F5F6FA"
+             x:Class="TodoList.Telas.Visualizar">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Grid TranslationY="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackLayout Margin="10, 0, 10, 30" Padding="20, 20, 0, 0" >
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnVoltar" />
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="{OnPlatform Android='back.png', iOS='back.png'}"/>
+                </StackLayout>
+                <Label Text="{Binding Nome}" Grid.Column="1" FontSize="20" FontFamily="MontserratBold" TextColor="Black" Margin="0, 20, 0, 0" />
+            </Grid>
+            <Frame HasShadow="False" CornerRadius="30" TranslationY="30" Grid.Row="1">
+                <StackLayout>
+                    <Label Text="{Binding Data}" FontSize="16" FontFamily="MontserratRegular" TextColor="Black" />
+                    <Label FontSize="16" FontFamily="MontserratRegular" TextColor="#939393">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding HorarioInicial}" />
+                                <Span Text=" - " />
+                                <Span Text="{Binding HorarioFinal}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>                    
+                    <Label Text="Nota" FontSize="20" FontFamily="MontserratBold" TextColor="Black" />
+                    <Label Text="{Binding Nota}" FontSize="14" FontFamily="MontserratRegular" TextColor="Black" />
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

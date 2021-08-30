@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Visual="Material"
+             x:Class="TodoList.Telas.Cadastrar">
+    <ContentPage.Content>
+        <Frame BackgroundColor="#F5F6FA" CornerRadius="10" Margin="30" HasShadow="True" >
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="FillAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Criar" FontFamily="MontserratRegular" FontSize="16" TextColor="Black"></Span>
+                                <Span Text="&#10;"></Span>
+                                <Span Text="Tarefa" FontFamily="MontserratBold" FontSize="22" TextColor="Black"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="X" Padding="20, 0, 0, 20" FontFamily="MontserratRegular" TextColor="Black" FontSize="20" HorizontalOptions="End" VerticalOptions="Start">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FecharModal_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                    <DatePicker x:Name="Data" Format="dd/MM/yyyy" BackgroundColor="White" />
+                </Frame>
+                <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                    <TimePicker x:Name="HorarioInicial" BackgroundColor="White"></TimePicker>
+                </Frame>
+                <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                    <TimePicker x:Name="HorarioFinal" BackgroundColor="White"></TimePicker>
+                </Frame>
+                <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                    <Entry x:Name="Nome" Placeholder="Tarefa" BackgroundColor="White"></Entry>
+                </Frame>
+                <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                    <Editor x:Name="Nota" Placeholder="Nota" BackgroundColor="White" AutoSize="TextChanges"></Editor>
+                </Frame>
+                <Button Text="Adicionar" Clicked="SalvarTarefa" BackgroundColor="#4043C9" Visual="Default" Padding="20, 10" TextColor="White" VerticalOptions="EndAndExpand" HorizontalOptions="End"></Button>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage> 
