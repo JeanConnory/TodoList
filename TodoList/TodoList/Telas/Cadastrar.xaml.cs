@@ -16,6 +16,7 @@ namespace TodoList.Telas
         public Cadastrar()
         {
             InitializeComponent();
+            lblData.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         private void FecharModal_Tapped(object sender, EventArgs e)
@@ -66,6 +67,32 @@ namespace TodoList.Telas
             }
 
             return validacao;
+        }
+
+        private void Data_Unfocused(object sender, FocusEventArgs e)
+        {
+            lblData.Text = ((DatePicker)sender).Date.ToString("dd/MM/yyyy");
+        }
+
+        private void AcionarDatePicker(object sender, EventArgs e)
+        {
+            Data.Focus();
+        }
+
+        private void AcionarTimePicker(object sender, EventArgs e)
+        {
+            HorarioInicial.Focus();
+        }
+
+        private void HorarioInicial_Unfocused(object sender, FocusEventArgs e)
+        {
+            lblHorarioInicial.Text = ((TimePicker)sender).Time.ToString(@"hh\:mm");
+            HorarioFinal.Focus();
+        }
+
+        private void HorarioFinal_Unfocused(object sender, FocusEventArgs e)
+        {
+            lblHorarioFinal.Text = ((TimePicker)sender).Time.ToString(@"hh\:mm");
         }
     }
 }

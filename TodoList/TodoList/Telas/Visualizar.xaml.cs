@@ -22,6 +22,11 @@ namespace TodoList.Telas
             InitializeComponent();
 
             BindingContext = tarefa;
+
+            if(tarefa.Nota == null)
+            {
+                lblTituloNota.IsVisible = false;
+            }
         }
 
         private void BtnVoltar(object sender, EventArgs e)

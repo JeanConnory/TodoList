@@ -37,7 +37,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Frame Grid.Column="1" WidthRequest="{OnPlatform UWP=75}" HeightRequest="{OnPlatform UWP=75}" HorizontalOptions="{OnPlatform UWP=End}" VerticalOptions="{OnPlatform UWP=Center}" Margin="10, 20, 20, 0" BackgroundColor="Blue"  CornerRadius="20" HasShadow="False">
+                <Frame Grid.Column="1" WidthRequest="{OnPlatform UWP=75}" HeightRequest="{OnPlatform UWP=75}" HorizontalOptions="{OnPlatform UWP=End}" VerticalOptions="{OnPlatform UWP=Center}" Margin="10, 20, 20, 0" BackgroundColor="{StaticResource Azul}"  CornerRadius="20" HasShadow="False">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="AbrirCalendario" />
                     </Frame.GestureRecognizers>
@@ -73,7 +73,7 @@
                                             <ColumnDefinition Width="1*" />
                                             <ColumnDefinition Width="4*" />
                                         </Grid.ColumnDefinitions>
-                                        <CheckBox IsChecked="{Binding Finalizada}" CheckedChanged="CheckedAction" Color="#707070" />
+                                        <CheckBox IsChecked="{Binding Finalizada}" CheckedChanged="CheckedAction" Color="{StaticResource Azul}" />
                                         <Label x:Name="LblTarefaDetalhe" TextDecorations="{Binding Finalizada, Converter={StaticResource Tachado}}" Grid.Column="1" LineHeight="1.2">
                                             <Label.GestureRecognizers>
                                                 <TapGestureRecognizer Tapped="BtnVisualizar" CommandParameter="{Binding .}" />
@@ -82,9 +82,9 @@
                                                 <FormattedString>
                                                     <Span Text="{Binding Nome}" TextColor="Black" FontFamily="MontserratBold" FontSize="16" />
                                                     <Span Text="&#10;" />
-                                                    <Span Text="{Binding HorarioInicial}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                    <Span Text="{Binding HorarioInicial, StringFormat=\{0:hh\\:mm\}}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
                                                     <Span Text=" - " TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
-                                                    <Span Text="{Binding HorarioFinal}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                    <Span Text="{Binding HorarioFinal, StringFormat=\{0:hh\\:mm\}}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
