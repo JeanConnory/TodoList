@@ -13,10 +13,13 @@ namespace TodoList.Telas
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Cadastrar : ContentPage
     {
+        public string Prioridade;
+
         public Cadastrar()
         {
             InitializeComponent();
             lblData.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            rbNormal.IsChecked = true;
         }
 
         private void FecharModal_Tapped(object sender, EventArgs e)
@@ -33,6 +36,7 @@ namespace TodoList.Telas
             tarefa.HorarioInicial = HorarioInicial.Time;
             tarefa.HorarioFinal = HorarioFinal.Time;
             tarefa.Finalizada = false;
+            tarefa.Prioridade = this.Prioridade;
 
             if (await ValidacaoAsync(tarefa))
             {
@@ -93,6 +97,11 @@ namespace TodoList.Telas
         private void HorarioFinal_Unfocused(object sender, FocusEventArgs e)
         {
             lblHorarioFinal.Text = ((TimePicker)sender).Time.ToString(@"hh\:mm");
+        }
+
+        private void rbBaixa_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            Prioridade = ((RadioButton)sender).Text;
         }
     }
 }

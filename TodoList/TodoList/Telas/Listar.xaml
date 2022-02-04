@@ -8,6 +8,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conversor:TachadoConversor x:Key="Tachado" />
+            <conversor:PrioridadeConversor x:Key="Prioridade" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -74,20 +75,34 @@
                                             <ColumnDefinition Width="4*" />
                                         </Grid.ColumnDefinitions>
                                         <CheckBox IsChecked="{Binding Finalizada}" CheckedChanged="CheckedAction" Color="{StaticResource Azul}" />
-                                        <Label x:Name="LblTarefaDetalhe" TextDecorations="{Binding Finalizada, Converter={StaticResource Tachado}}" Grid.Column="1" LineHeight="1.2">
-                                            <Label.GestureRecognizers>
+
+                                        <StackLayout Grid.Column="1">
+                                            <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer Tapped="BtnVisualizar" CommandParameter="{Binding .}" />
-                                            </Label.GestureRecognizers>
+                                            </StackLayout.GestureRecognizers>
+                                            <Label TextDecorations="{Binding Finalizada, Converter={StaticResource Tachado}}" Text="{Binding Nome}" TextColor="Black" FontFamily="MontserratBold" FontSize="16" />
+                                            <StackLayout Orientation="Horizontal">
+                                                <Ellipse WidthRequest="15" HeightRequest="15" Fill="{Binding Prioridade, Converter={StaticResource Prioridade}}" />
+                                                <Label TextDecorations="{Binding Finalizada, Converter={StaticResource Tachado}}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding HorarioInicial, StringFormat=\{0:hh\\:mm\}}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                            <Span Text=" - " TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                            <Span Text="{Binding HorarioFinal, StringFormat=\{0:hh\\:mm\}}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <!--<Label x:Name="LblTarefaDetalhe" TextDecorations="{Binding Finalizada, Converter={StaticResource Tachado}}" Grid.Column="1" LineHeight="1.2">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding Nome}" TextColor="Black" FontFamily="MontserratBold" FontSize="16" />
-                                                    <Span Text="&#10;" />
                                                     <Span Text="{Binding HorarioInicial, StringFormat=\{0:hh\\:mm\}}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
                                                     <Span Text=" - " TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
                                                     <Span Text="{Binding HorarioFinal, StringFormat=\{0:hh\\:mm\}}" TextColor="#939393" FontFamily="MontserratLight" FontSize="12" />
                                                 </FormattedString>
                                             </Label.FormattedText>
-                                        </Label>
+                                        </Label>-->
                                     </Grid>
                                 </SwipeView>
                             </DataTemplate>

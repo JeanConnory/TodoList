@@ -2,8 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             xmlns:conversor="clr-namespace:TodoList.Conversor"
              BackgroundColor="#F5F6FA"
              x:Class="TodoList.Telas.Visualizar">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conversor:PrioridadeConversor x:Key="Prioridade" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowSpacing="0">
             <Grid.ColumnDefinitions>
@@ -43,6 +49,10 @@
                     </Label>                    
                     <Label x:Name="lblTituloNota" Text="Nota" FontSize="20" FontFamily="MontserratBold" TextColor="Black" />
                     <Label Text="{Binding Nota}" FontSize="14" FontFamily="MontserratRegular" TextColor="Black" />
+                    <StackLayout Orientation="Horizontal">
+                        <Ellipse WidthRequest="15" HeightRequest="15" VerticalOptions="Center" Fill="{Binding Prioridade, Converter={StaticResource Prioridade}}" />
+                        <Label Text="{Binding Prioridade}" Style="{StaticResource TituloCampo}" />
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </Grid>

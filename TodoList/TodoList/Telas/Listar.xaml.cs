@@ -68,8 +68,10 @@ namespace TodoList.Telas
 
         private void AtualizarDataCalendario(DateTime data)
         {
-            Task.Run(() => {
-                Device.BeginInvokeOnMainThread(async () => {
+            Task.Run(() =>
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
                     Lista = new ObservableCollection<Tarefa>(
                         await new TarefaDB().PesquisarAsync(data)
                     );
@@ -104,14 +106,14 @@ namespace TodoList.Telas
         {
             bool pergunta = await DisplayAlert("Excluir", "Tem certeza que deseja excluir este registro?", "Sim", "Não");
 
-            if(pergunta)
+            if (pergunta)
             {
                 var swipeItem = (SwipeItem)sender;
                 Tarefa tarefa = (Tarefa)swipeItem.CommandParameter;
 
                 var excluido = await new TarefaDB().ExcluirAsync(tarefa.Id);
 
-                if(excluido)
+                if (excluido)
                 {
                     Lista.Remove(tarefa);
                 }
@@ -121,25 +123,22 @@ namespace TodoList.Telas
         private async void CheckedAction(object sender, CheckedChangedEventArgs e)
         {
             var checkbox = (CheckBox)sender;
-            var label = checkbox.Parent.FindByName<Label>("LblTarefaDetalhe");
-            if (label != null)
+            var grid = (Grid)checkbox.Parent;
+            var stacklayout = (StackLayout)grid.Children[1];
+            var tapGesture = (TapGestureRecognizer)stacklayout.GestureRecognizers[0];
+            var tarefa = (Tarefa)tapGesture.CommandParameter;
+            var label = (Label)stacklayout.Children[0];
+            
+            if (tarefa != null)
             {
-                var tapGesture = (TapGestureRecognizer)label.GestureRecognizers[0];
-                if (tapGesture != null)
-                {
-                    var tarefa = (Tarefa)tapGesture.CommandParameter;
-                    if (tarefa != null)
-                    {
-                        await new TarefaDB().AtualizarAsync(tarefa);
-                        Tachado(label, tarefa.Finalizada);
-                    }
-                }
+                await new TarefaDB().AtualizarAsync(tarefa);
+                Tachado(label, tarefa.Finalizada);
             }
         }
 
         private void Tachado(Label label, bool finalizada)
         {
-            if(finalizada)
+            if (finalizada)
             {
                 label.TextDecorations = TextDecorations.Strikethrough;
             }

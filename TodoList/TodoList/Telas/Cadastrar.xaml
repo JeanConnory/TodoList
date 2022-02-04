@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Visual="Material"
              x:Class="TodoList.Telas.Cadastrar">
     <ContentPage.Content>
         <ScrollView>
@@ -34,7 +33,7 @@
                             <Image Source="{OnPlatform Android='calendar.png', iOS='calendar.png'}" />
                         </StackLayout>
                     </Frame>
-                    <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                    <Frame  Padding="0" CornerRadius="0" BorderColor="#EDEDED">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="AcionarTimePicker" />
                         </Frame.GestureRecognizers>
@@ -53,12 +52,17 @@
                             </Label>
                         </StackLayout>
                     </Frame>
-                    <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
-                        <Entry x:Name="Nome" Style="{StaticResource EntradaCampoEntry}" Placeholder="Tarefa"></Entry>
+                    <Frame Visual="Material" Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                        <Entry Visual="Material" x:Name="Nome" Style="{StaticResource EntradaCampoEntry}" Placeholder="Tarefa"></Entry>
                     </Frame>
-                    <Frame Padding="0" CornerRadius="0" BorderColor="#EDEDED">
-                        <Editor x:Name="Nota" Style="{StaticResource EntradaCampoEditor}" Placeholder="Nota"></Editor>
+                    <Frame Visual="Material" Padding="0" CornerRadius="0" BorderColor="#EDEDED">
+                        <Editor Visual="Material" x:Name="Nota" Style="{StaticResource EntradaCampoEditor}" Placeholder="Nota"></Editor>
                     </Frame>
+                    <Grid ColumnDefinitions="*,*,*">
+                        <RadioButton x:Name="rbBaixa" CheckedChanged="rbBaixa_CheckedChanged" Grid.Column="0" Text="Baixa" TextColor="{StaticResource PrioridadeBaixa}" />
+                        <RadioButton x:Name="rbNormal" CheckedChanged="rbBaixa_CheckedChanged" Grid.Column="1" Text="Normal" TextColor="{StaticResource PrioridadeNormal}" />
+                        <RadioButton x:Name="rbAlta" CheckedChanged="rbBaixa_CheckedChanged" Grid.Column="2" Text="Alta" TextColor="{StaticResource PrioridadeAlta}" />
+                    </Grid>
                     <Button Text="Adicionar" Clicked="SalvarTarefa" Style="{StaticResource Botao}" ></Button>
                 </StackLayout>
             </Frame>
